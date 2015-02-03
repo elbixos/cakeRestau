@@ -1,0 +1,40 @@
+#login a {
+	color:#ffffff;
+}
+
+#menu li a, #panier li a {
+	color:#ffffff;
+}
+
+#menu ul{
+	margin-top:1em;
+}
+
+
+#menu ul ,#panier ul {
+	list-style:none;
+}
+
+tr.success  td{
+	background-color : #62af56;
+}
+
+#header2 {
+	width:100%;
+	display:flex;
+	justify-content:flex-end;
+}
+
+#container {
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
+}
+
+#content{
+	flex:1;
+}
+
+#footer{
+	width:100%;
+}
