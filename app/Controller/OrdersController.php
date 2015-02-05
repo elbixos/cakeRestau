@@ -4,7 +4,26 @@ class OrdersController extends AppController {
 	public $helpers = array('Html', 'Form');
 
     public $uses = array('Order','OrderElement','Product','Cart');
-	 
+	
+	public function isAuthorized($user) {
+		// Tous les users inscrits peuvent ajouter une commande
+		if ($this->action === 'add') {
+			return true;
+		}
+
+		// Des choses specifiques pour certains... sur les commandes
+		/*
+		if (in_array($this->action, array('edit', 'delete'))) {
+			$postId = (int) $this->request->params['pass'][0];
+			if ($this->Post->isOwnedBy($postId, $user['id'])) {
+				return true;
+			}
+		}
+		*/
+
+		// le retour par défaut.
+		return parent::isAuthorized($user);
+	}
 
 	public function index() {
 		//$this->layout = 'monLayout';
