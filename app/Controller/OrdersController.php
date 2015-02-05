@@ -88,12 +88,6 @@ class OrdersController extends AppController {
 	}
 	
 	public function indexcook() {
-		/*
-		// On recupere les orderElements d'etat 'not ready'
-		$orderElts = $this->Order->OrderElement->find("all", array(
-			'conditions'=> array('orderElement.etat'=>'cooking')
-		));
-		*/
 		
 		// recuperons les Order.id des orderElements d'etat 'not ready'
 		$orderElts = $this->Order->OrderElement->find("list",array(
@@ -107,14 +101,8 @@ class OrdersController extends AppController {
 			$orders_id[]=$oi_id;
 		}
 		
-		$this->set('presel',$orders_id); 
-		
-		// ci dessous, le test pour recuperer juste les bonnes commandes 
-		//$orders = $this->Order->find('all', array('conditions' => array('Order.id' => $orders_id)));
-		
-		// Et sa version avec containable
 		// On limite la recherche
-		$this->Order->contain(array(
+		$contains = array(
 			'OrderElement' => array(
 				'fields' => array('etat','id'),
 				'Product' => array(
@@ -127,10 +115,14 @@ class OrdersController extends AppController {
 			'User' => array(
 				'fields' => array('username')
 			)
-		));
-		
-		//$orders = $this->Order->find('all');
-		$orders = $this->Order->find('all',array('conditions'=>array('Order.id' => $orders_id)));
+		);
+
+		// le find avec contain ET LA CONDITION !
+		$orders = $this->Order->find('all',array(
+			'contain'=> $contains,
+			'conditions'=>array('Order.id' => $orders_id)
+			)
+		);
 		
 		$this->set('orders',$orders);
 		
