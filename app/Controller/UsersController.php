@@ -37,6 +37,8 @@ class UsersController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             $this->User->create();
+		    $this->request->data['User']['role'] = 'client';
+
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('L\'user a été sauvegardé'));
                 return $this->redirect(array('action' => 'index'));

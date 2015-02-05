@@ -10,7 +10,7 @@
 		<th>nom</th>
 		<th>Role</th>
 		<th>email</th>
-		<th>action</th>
+		<th>actions</th>
 	</tr>
 
 	<!-- Ici, la boucle sur les produits...en affichant les infos relatives au produit -->
@@ -19,9 +19,15 @@
 		<td><?php echo $user['User']['username']; ?></td>
 		<td><?php echo $user['User']['role']; ?></td>
 		<td><?php 	
+				
 				echo $this->Html->link(
 					'Edit',
 					array('action' => 'edit', $user['User']['id'])
+				);
+				echo " / ";
+				echo $this->Form->postLink(
+					'Supprimer',
+					array('action' => 'delete', $user['User']['id'])
 				);
 			?>
 		</td>

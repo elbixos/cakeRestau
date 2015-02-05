@@ -36,10 +36,10 @@ class AppController extends Controller {
 	public $components = array(
         'Session',
         'Auth' => array(
-            'loginRedirect' => array('controller' => 'product_lines', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'products', 'action' => 'index'),
-        )
-		//, 'authorize' => array('Controller') // Ajout de cette ligne
+            'loginRedirect' => array('controller' => 'products', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'products', 'action' => 'index'),	
+			'authorize' => array('Controller') // Ajout de cette ligne
+		)
     );
 	
 	public function isAuthorized($user) {

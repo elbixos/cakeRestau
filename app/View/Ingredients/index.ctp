@@ -1,5 +1,5 @@
 <!-- File: /app/View/Ingredients/index.ctp -->
-<?php debug($ingredients) ?>
+<?php //debug($ingredients) ?>
 
 
 <h1>Ingrédients</h1>
@@ -25,8 +25,10 @@
 </table>
 
 <?php
-	echo $this->Html->link(
-		'Ajout ingrédient',
-		array('controller' => 'ingredients', 'action' => 'add')
-	);
+	if ($myuser['role'] == 'admin') {
+		echo $this->Html->link(
+			'Ajout ingrédient',
+			array('controller' => 'ingredients', 'action' => 'add')
+		);
+	}
 ?>

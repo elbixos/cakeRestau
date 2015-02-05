@@ -56,6 +56,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 					echo $this->Html->link('Log in', array('plugin'=>null,
 						'admin'=>false, 'controller'=>'users', 'action'=>'login'));
 					echo '</p>';
+					echo '<p>';
+					echo $this->Html->link('Inscription', array('plugin'=>null,
+						'admin'=>false, 'controller'=>'users', 'action'=>'add'));
+					echo '</p>';
 				}
 				?>
 			</div>
@@ -89,20 +93,25 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                         array('controller'=>'products','action'=>'index')
 							);?>
 					</li>
-					<li>
+					
+					
+				</ul>
+				<?php 
+				if ($myuser['role'] =='admin') :
+				?>
+				<li>
 						<?php 
 							echo $this->Html->link('Commandes',
                                         array('controller'=>'orders','action'=>'index')
 							);?>
 					</li>
+				<ul class="nav">
 					<li>
 						<?php 
 							echo $this->Html->link('Ingredients',
                                         array('controller'=>'ingredients','action'=>'index')
 							);?>
 					</li>
-				</ul>
-				<ul class="nav">
 					<li>
 						<?php 
 							echo $this->Html->link('Utilisateurs',
@@ -110,6 +119,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 							);?>
 					</li>
 				</ul>
+				<?php endif ?>
 		</div><!-- /#menu -->
     	
 	

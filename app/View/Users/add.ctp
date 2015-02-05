@@ -5,9 +5,10 @@
         <legend><?php echo __('Ajouter User'); ?></legend>
         <?php echo $this->Form->input('username');
         echo $this->Form->input('password');
-        echo $this->Form->input('role', array(
+        /*echo $this->Form->input('role', array(
             'options' => array('admin' => 'Admin', 'gérant' => 'Gérant','cuisinier'=> 'Cuisinier','livreur' => 'Livreur','client'=> 'Client')
         ));
+		*/
     ?>
     </fieldset>
 <?php echo $this->Form->end(__('Ajouter'));?>
