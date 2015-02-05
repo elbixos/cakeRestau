@@ -42,6 +42,14 @@ class Cart extends AppModel {
          
         return $count;
     }
+	
+	/*
+     * save data to session
+     */
+    public function raz() {
+		$data = array();
+        $this->saveProduct($data);
+    }
  
     /*
      * save data to session

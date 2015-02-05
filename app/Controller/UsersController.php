@@ -18,6 +18,8 @@ class UsersController extends AppController {
 	}
 
 	public function logout() {
+		$this->loadModel('Cart');
+		$this->Cart->raz();
 		return $this->redirect($this->Auth->logout());
 	}
 
@@ -40,6 +42,7 @@ class UsersController extends AppController {
 		    $this->request->data['User']['role'] = 'client';
 
             if ($this->User->save($this->request->data)) {
+				$this->Auth->login(); // AutoLogin ? 
                 $this->Session->setFlash(__('L\'user a été sauvegardé'));
                 return $this->redirect(array('action' => 'index'));
             } else {

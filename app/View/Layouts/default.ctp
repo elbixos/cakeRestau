@@ -99,13 +99,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<?php 
 				if ($myuser['role'] =='admin') :
 				?>
-				<li>
+				
+				<ul class="nav">
+					<li>
 						<?php 
 							echo $this->Html->link('Commandes',
                                         array('controller'=>'orders','action'=>'index')
 							);?>
 					</li>
-				<ul class="nav">
 					<li>
 						<?php 
 							echo $this->Html->link('Ingredients',

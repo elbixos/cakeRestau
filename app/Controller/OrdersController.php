@@ -62,7 +62,8 @@ class OrdersController extends AppController {
 			if ($this->Order->saveAll($data)) {
 				$this->Session->setFlash(__('commande passee'));
 				// On vide le panier
-				$this->redirect(array('controller'=> 'carts','action' => 'delete'));
+				$this->Cart->raz();
+				$this->redirect(array('controller'=> 'products','action' => 'index'));
 			}
 			else
 				$this->Session->setFlash(__('Impossible d ajouter votre commande.'));

@@ -1,7 +1,7 @@
 <!-- File: /app/View/Orders/index.ctp -->
 <h1>Commandes</h1>
 
-<?php debug($orders); ?>
+<?php //debug($orders); ?>
 
 <table>
 	<tr>
