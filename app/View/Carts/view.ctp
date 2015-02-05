@@ -48,6 +48,15 @@
 					array('confirm' => 'Are you sure?')
 				);
 				?>
+			</a>
+			<a class="btn btn-success"
+                <?php	
+				echo $this->Html->Link(
+					'Vider',
+					array('controller'=> 'carts', 'action' => 'raz')
+				);
+				?>
+			</a>
         </p>
  
     </div>

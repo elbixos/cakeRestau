@@ -4,6 +4,11 @@ App::uses('AppController', 'Controller');
 class CartsController extends AppController {
  
     public $uses = array('Product','Cart');
+	
+	public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add','update','raz');
+    }
      
     public function add() {
         //$this->autoRender = false;
@@ -42,6 +47,14 @@ class CartsController extends AppController {
                 $this->Cart->saveProduct($cart);
             }
         }
+        $this->redirect(array('action'=>'view'));
+	}
+	
+	// Vidage du panier 
+	public function raz() {
+        $this->Cart->raz();
+        $this->Session->setFlash(__('Panier Vidé'));
+		 
         $this->redirect(array('action'=>'view'));
 	}
 	

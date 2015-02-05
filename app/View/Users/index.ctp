@@ -1,7 +1,6 @@
-<!-- File: /app/View/Products/index.ctp -->
+<!-- File: /app/View/Users/index.ctp -->
 
-<?
-	//php print_r ($produits); ?> 
+<?php //debug ($users); ?> 
 
 
 <h1>Utilisateurs</h1>
