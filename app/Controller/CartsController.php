@@ -45,12 +45,6 @@ class CartsController extends AppController {
         $this->redirect(array('action'=>'view'));
 	}
 	
-	public function delete() {
-		$this->autoRender = false;
-        $cart = array();
-        $this->Cart->saveProduct($cart);
-        
-		$this->redirect(array('controller' => 'products', 'action'=>'index'));
-	}
+
 }
 ?>
