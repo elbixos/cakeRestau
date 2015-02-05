@@ -134,35 +134,7 @@ class OrdersController extends AppController {
 		
 		$this->set('orders',$orders);
 		
-		/*
-		$supervisor_role_id = $this->Role->field('id', array('Role.name' => 'Supervisor'));
 
-		$supervisors = $this->User->find('all', array(
-			'conditions' => array(
-				'User.role_id' => $supervisor_role_id
-			)
-		));
-		*/
-		/*
-		$this->Order->contain(array(
-			'conditions' => array(
-				'Order.id' => $orderElts)
-
-			'OrderElement' => array(
-				'conditions'=>array('OrderElement.etat'=>'cooking'),
-				'fields' => array('etat','id'),
-				'Product' => array(
-					'fields'=>array('nom'),
-					'ProductLine' => array(
-						'fields'=>array('nom')
-					)
-				)
-			),
-			'User' => array(
-				'fields' => array('username')
-			)
-		));
-		*/
 		/* 
 		// Avec du contains, laisse les OrderElements non cooking vides
 		// On limite la recherche
