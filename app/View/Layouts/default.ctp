@@ -93,6 +93,23 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                         array('controller'=>'products','action'=>'index')
 							);?>
 					</li>
+					<?php 
+					if (!empty($myuser)) :
+					?>
+					<li>
+						<?php 
+							echo $this->Html->link('Vos Commandes',
+                                        array('controller'=>'orders','action'=>'index')
+							);?>
+					</li>
+					<?php endif ?>
+					
+					<li>
+						<?php 
+							echo $this->Html->link('Commandes Test',
+                                        array('controller'=>'orders','action'=>'indexcook')
+							);?>
+					</li>
 					
 					
 				</ul>

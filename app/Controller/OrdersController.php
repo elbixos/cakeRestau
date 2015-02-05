@@ -28,8 +28,47 @@ class OrdersController extends AppController {
 	public function index() {
 		//$this->layout = 'monLayout';
 		
-		// On limite la recherche
-		$this->Order->contain(array(
+		
+		//'OrderElement.Product.nom');
+		
+		// preparation de la liste, en fonction du role.
+		$user = $this->Auth->user();
+		//$this->set('user',$user);
+		
+		if ($user['role'] === "client") {
+			$conditions = array('Order.user_id'=> $user['id']); 
+			$this->set('orders', $this->Order->find('all',array(
+				'conditions'=>$conditions)
+				)
+			);
+		}
+		else if ($user['role'] === "cuisinier") {
+			// On limite la recherche
+			$this->Order->contain(array(
+				'OrderElement' => array(
+					'conditions'=>array('OrderElement.etat'=>'not ready'),
+					'fields' => array('etat','id'),
+					'Product' => array(
+						'fields'=>array('nom'),
+						'ProductLine' => array(
+							'fields'=>array('nom')
+						)
+					)
+				),
+				'User' => array(
+					'fields' => array('username')
+				)
+			));
+			
+
+			// On recupere 
+			$orders = $this->Order->find("all");
+			$this->set('orders', $orders);
+
+		}
+		else {
+			// On limite la recherche
+			$this->Order->contain(array(
 				'OrderElement' => array(
 					'fields' => array('etat','id'),
 					'Product' => array(
@@ -42,13 +81,114 @@ class OrdersController extends AppController {
 				'User' => array(
 					'fields' => array('username')
 				)
-			)
-		);
-		//'OrderElement.Product.nom');
-		$this->set('orders', $this->Order->find('all'));
-	
+			));
+			$this->set('orders', $this->Order->find('all'));
+		}
 		//$this->set('orders', $this->Order->find('all',array('recursive'=>3)));
 	}
+	
+	public function indexcook() {
+		/*
+		// On recupere les orderElements d'etat 'not ready'
+		$orderElts = $this->Order->OrderElement->find("all", array(
+			'conditions'=> array('orderElement.etat'=>'cooking')
+		));
+		*/
+		
+		// recuperons les Order.id des orderElements d'etat 'not ready'
+		$orderElts = $this->Order->OrderElement->find("list",array(
+			'fields' => array ('order_id'),
+			'conditions'=> array('orderElement.etat'=>'cooking')
+		));
+		
+		// on fait un tableau des $order_id utiles 
+		$orders_id =[];
+		foreach ($orderElts as $oe_id => $oi_id){
+			$orders_id[]=$oi_id;
+		}
+		
+		$this->set('presel',$orders_id); 
+		
+		// ci dessous, le test pour recuperer juste les bonnes commandes 
+		//$orders = $this->Order->find('all', array('conditions' => array('Order.id' => $orders_id)));
+		
+		// Et sa version avec containable
+		// On limite la recherche
+		$this->Order->contain(array(
+			'OrderElement' => array(
+				'fields' => array('etat','id'),
+				'Product' => array(
+					'fields'=>array('nom'),
+					'ProductLine' => array(
+						'fields'=>array('nom')
+					)
+				)
+			),
+			'User' => array(
+				'fields' => array('username')
+			)
+		));
+		
+		//$orders = $this->Order->find('all');
+		$orders = $this->Order->find('all',array('conditions'=>array('Order.id' => $orders_id)));
+		
+		$this->set('orders',$orders);
+		
+		/*
+		$supervisor_role_id = $this->Role->field('id', array('Role.name' => 'Supervisor'));
+
+		$supervisors = $this->User->find('all', array(
+			'conditions' => array(
+				'User.role_id' => $supervisor_role_id
+			)
+		));
+		*/
+		/*
+		$this->Order->contain(array(
+			'conditions' => array(
+				'Order.id' => $orderElts)
+
+			'OrderElement' => array(
+				'conditions'=>array('OrderElement.etat'=>'cooking'),
+				'fields' => array('etat','id'),
+				'Product' => array(
+					'fields'=>array('nom'),
+					'ProductLine' => array(
+						'fields'=>array('nom')
+					)
+				)
+			),
+			'User' => array(
+				'fields' => array('username')
+			)
+		));
+		*/
+		/* 
+		// Avec du contains, laisse les OrderElements non cooking vides
+		// On limite la recherche
+		$this->Order->contain(array(
+			'OrderElement' => array(
+				'conditions'=>array('OrderElement.etat'=>'cooking'),
+				'fields' => array('etat','id'),
+				'Product' => array(
+					'fields'=>array('nom'),
+					'ProductLine' => array(
+						'fields'=>array('nom')
+					)
+				)
+			),
+			'User' => array(
+				'fields' => array('username')
+			)
+		));
+		$orders = $this->Order->find('all');
+		$this->set('orders', $orders);
+		
+		*/
+		
+		
+
+		}
 	
 	/* On ajoute les elements du panier dans la commande */
 	public function add() {
