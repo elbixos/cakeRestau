@@ -42,7 +42,10 @@ class UsersController extends AppController {
 		    $this->request->data['User']['role'] = 'client';
 
             if ($this->User->save($this->request->data)) {
-				$this->Auth->login(); // AutoLogin ? 
+				// AutoLogin, seulement si l'utilisateur n'est pas connecté
+				// Un admin qui ajoute un utilisateur ne s'auto log pas comme le nouvel utilisateur
+				if (empty ($this->Auth->user()))
+					$this->Auth->login();  
                 $this->Session->setFlash(__('L\'user a été sauvegardé'));
                 return $this->redirect(array('action' => 'index'));
             } else {
