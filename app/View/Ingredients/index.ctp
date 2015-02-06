@@ -6,19 +6,33 @@
 <table>
 	<tr>
 		<th>nom</th>
-		<th>action</th>
+		<?php
+		if ($myuser['role'] == 'admin') {
+			echo '<th>Actions</th>';
+		}
+		?>
 	</tr>
 
 	<!-- Here is where we loop through our $posts array, printing out post info -->
 	<?php foreach ($ingredients as $unIngredient): ?>
 	<tr>
 		<td><?php echo $unIngredient['Ingredient']['nom']; ?></td>
-		<td>
-			<?php echo "rien";
-			/*$this->Html->link($post['Post']['title'],
-			array('controller' => 'posts', 'action' => 'view', $post['Post']['id']));
-			*/?>
-		</td>
+		<?php
+		if ($myuser['role'] == 'admin') {
+			echo '<td>';
+			echo $this->Html->link('edit', array(
+				'controller' => 'ingredients', 'action' => 'edit', $unIngredient['Ingredient']['id']
+				)
+			);
+			echo ' / ';
+			echo $this->Form->postLink('delete', array(
+				'controller' => 'ingredients', 'action' => 'delete', $unIngredient['Ingredient']['id']
+				)
+			);
+
+			echo '</td>';
+		}
+		?>
 	</tr>
 	<?php endforeach; ?>
 	<?php unset($unIngredient); ?>
