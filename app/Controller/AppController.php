@@ -48,6 +48,7 @@ class AppController extends Controller {
         return true;
     }
 
+	//$this->Auth->authError = "You are not authorized to access.";
     // Refus par défaut
     return false;
 }

@@ -133,7 +133,20 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 								</li>
 							</ul>
 						<?php endif //role cuisto?>
-				
+						<?php
+						// Pour les livreurs
+						if ($myuser['role'] =='livreur') :
+						?>
+							<h2> Menu livreur </h2>
+							<ul class="nav specific">
+								<li>
+									<?php 
+										echo $this->Html->link('Commandes en cours',
+													array('controller'=>'orders','action'=>'indexdelivery')
+										);?>
+								</li>
+							</ul>
+						<?php endif //role cuisto?>				
 						
 						<?php 
 						// pour les admin
@@ -178,6 +191,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 							<?php 
 								echo $this->Html->link('Commandes cuisto',
 											array('controller'=>'orders','action'=>'indexcook')
+								);?>
+						</li>
+						<li>
+							<?php 
+								echo $this->Html->link('Commandes livreur',
+											array('controller'=>'orders','action'=>'indexdelivery')
 								);?>
 						</li>
 					</ul>

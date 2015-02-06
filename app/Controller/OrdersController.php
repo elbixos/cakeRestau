@@ -16,6 +16,19 @@ class OrdersController extends AppController {
 				return true;
 			}
 		}
+		
+		if ($this->action === 'avancer') {
+			if ($user['role']==='cuisinier' or $user['role']==='livreur'){
+				return true;
+			}
+		}
+		
+		if ($this->action === 'indexdelivery') {
+			if ($user['role']==='livreur'){
+				return true;
+			}
+		}
+		
 		// Des choses specifiques pour certains... sur les commandes
 		/*
 		if (in_array($this->action, array('edit', 'delete'))) {
@@ -56,13 +69,18 @@ class OrdersController extends AppController {
 		// On limite la recherche
 		$contains = $this-> orderContains();
 		
+		// conditions
 		$user = $this->Auth->user();
 		$conditions = array('Order.user_id'=> $user['id']); 
-		$this->set('orders', $this->Order->find('all',array(
+		
+		// le find
+		$orders = $this->Order->find('all',array(
 			'conditions'=>$conditions,
-			'contain'=>$contains)
+			'contain'=>$contains
 			)
 		);
+		
+		$this->set('orders', $orders);
 		
 	}
 
@@ -153,6 +171,32 @@ class OrdersController extends AppController {
 
 	}
 
+	// le controler livreur de liste des commandes
+	public function indexdelivery() {
+		// On limite la recherche
+		$contains = $this-> orderContains();
+		
+		// conditions
+		$conditions = array(
+				'Order.etat'=> array('prete a livrer','en livraison')
+			); 
+		
+		// le find
+		$orders = $this->Order->find('all',array(
+			'conditions'=>$conditions,
+			'contain'=>$contains
+			)
+		);
+		
+		//debug($orders);
+		
+		$this->set('orders', $orders);
+
+		$this->render('/Orders/index');
+
+	}
+	
+	
 	// liste des commandes pour l'admin
 	public function indexadmin() {
 		
