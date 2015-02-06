@@ -125,11 +125,6 @@ class OrdersController extends AppController {
 			)
 		);
 		
-		$orders = $this->Order->find('all', array(
-			'contain'=> $contains,
-			'joins'=>$conditions['joins']
-			)
-		);
 		
 		/*
 		// Tentative de join, ratée...
@@ -146,6 +141,11 @@ class OrdersController extends AppController {
 			)
 		);
 		$this->recursive = -1;
+		$orders = $this->Order->find('all', array(
+			'contain'=> $contains,
+			'joins'=>$conditions['joins']
+			)
+		);
 		*/
 
 		
