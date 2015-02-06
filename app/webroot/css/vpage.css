@@ -38,3 +38,19 @@ tr.success  td{
 #footer{
 	width:100%;
 }
+
+#menu div.nav{
+	background-color:#000000;
+}
+
+#menu ul.nav{
+	margin-top : 0;
+}
+
+
+#menu div.nav h2{
+	margin-top:1em;
+	margin-bottom:0;
+	font-size:1.2rem;
+	color:#333333;
+}

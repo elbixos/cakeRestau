@@ -73,13 +73,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</div><!-- /panier -->			
 		</div> <!--header2> -->
 		<div  id="menu">
-				<ul class="nav">
+				<!-- rappel du panier -->
+				<div class="nav cart">
+				<ul class="nav cart">
 					<li>
 						<?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge" id="cart-counter">'.$count.'</span>',
                                         array('controller'=>'carts','action'=>'view'),array('escape'=>false));?>
 					</li>
 				</ul>
-				<ul class="nav">
+				</div>
+				<!-- Menu client (pour tout le monde)-->
+				<div class="nav client">
+				<h2> vos actions </h2>
+				<ul class="nav client">
 					<li>
 						<?php 
 							echo $this->Html->link('gammes de produits',
@@ -105,52 +111,79 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 					<?php endif ?>
 							
 				</ul>
+				</div>
 
+				<!-- le menu specifique pour membres de l'entreprise -->
 				<?php 
-				if ($myuser['role'] =='cuisinier') :
+				if (!empty($myuser)) :
 				?>
-				<ul class="nav">
-					<li>
-						<?php 
-							echo $this->Html->link('Commandes en cours',
-                                        array('controller'=>'orders','action'=>'indexcook')
-							);?>
-					</li>
-				</ul>
-				<?php endif ?>
-		
+					<div class="nav specific">					
+						
+						<?php
+						// Pour les cuistos
+						if ($myuser['role'] =='cuisinier') :
+						?>
+							<h2> Menu cuisiniers </h2>
+							<ul class="nav specific">
+								<li>
+									<?php 
+										echo $this->Html->link('Commandes en cours',
+													array('controller'=>'orders','action'=>'indexcook')
+										);?>
+								</li>
+							</ul>
+						<?php endif //role cuisto?>
 				
+						
+						<?php 
+						// pour les admin
+						if ($myuser['role'] =='admin') :
+						?>
+							<h2> Gérant </h2>
+							<ul class="nav specific">
+								<li>
+									<?php 
+										echo $this->Html->link('Gestion Commandes',
+													array('controller'=>'orders','action'=>'indexadmin')
+										);?>
+								</li>
+								<li>
+									<?php 
+										echo $this->Html->link('Ingredients',
+													array('controller'=>'ingredients','action'=>'index')
+										);?>
+								</li>
+								<li>
+									<?php 
+										echo $this->Html->link('Utilisateurs',
+													array('controller'=>'users','action'=>'index')
+										);?>
+								</li>
+							</ul>
+						
+						<?php endif //role admin ?>
+					</div>
+				<?php endif // utilisateur loggué ?>
+					
 				<?php 
+				// pour les admin
 				if ($myuser['role'] =='admin') :
 				?>
+					
+					<!-- le menu specifique 2 pour gerant et admin -->
+					<div class="nav specific gerant">
+					<h2> Gérant : autres </h2>
+					<ul class="nav specific gerant">						
+						<li>
+							<?php 
+								echo $this->Html->link('Commandes cuisto',
+											array('controller'=>'orders','action'=>'indexcook')
+								);?>
+						</li>
+					</ul>
+					</div>
+				<?php endif // role admin 2?>
 				
-				<ul class="nav">
-					<li>
-						<?php 
-							echo $this->Html->link('Gestion Commandes',
-                                        array('controller'=>'orders','action'=>'indexadmin')
-							);?>
-					</li>
-					<li>
-						<?php 
-							echo $this->Html->link('Ingredients',
-                                        array('controller'=>'ingredients','action'=>'index')
-							);?>
-					</li>
-					<li>
-						<?php 
-							echo $this->Html->link('Utilisateurs',
-                                        array('controller'=>'users','action'=>'index')
-							);?>
-					</li>
-					<li>
-						<?php 
-							echo $this->Html->link('Commandes cuisto',
-                                        array('controller'=>'orders','action'=>'indexcook')
-							);?>
-					</li>
-				</ul>
-				<?php endif ?>
 		</div><!-- /#menu -->
     	
 	
