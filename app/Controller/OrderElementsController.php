@@ -57,7 +57,9 @@ class OrderElementsController extends AppController {
 		else
 			$this->Session->setFlash(__('Probleme lors de la requete'));
 		
-		$this->redirect(array('controller'=>'orders', 'action' => 'index'));
+		$this->redirect($this->referer());
+		
+		//$this->redirect(array('controller'=>'orders', 'action' => 'index'));
 	}
 }
 

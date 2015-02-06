@@ -121,7 +121,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						
 						<?php
 						// Pour les cuistos
-						if ($myuser['role'] =='cuisinier') :
+						if ($myuser['role'] ==='cuisinier') :
 						?>
 							<h2> Menu cuisiniers </h2>
 							<ul class="nav specific">
@@ -135,7 +135,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						<?php endif //role cuisto?>
 						<?php
 						// Pour les livreurs
-						if ($myuser['role'] =='livreur') :
+						if ($myuser['role'] ==='livreur') :
 						?>
 							<h2> Menu livreur </h2>
 							<ul class="nav specific">
@@ -150,7 +150,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						
 						<?php 
 						// pour les admin
-						if ($myuser['role'] =='admin') :
+						if ($myuser['role'] ==='admin' || $myuser['role'] ==='gerant') :
 						?>
 							<h2> Gérant </h2>
 							<ul class="nav specific">
@@ -180,7 +180,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 					
 				<?php 
 				// pour les admin
-				if ($myuser['role'] =='admin') :
+				if ( ($myuser['role'] ==='admin') || ($myuser['role'] ==='gerant')) :
 				?>
 					
 					<!-- le menu specifique 2 pour gerant et admin -->
