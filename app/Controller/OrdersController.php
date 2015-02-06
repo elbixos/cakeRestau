@@ -72,12 +72,19 @@ class OrdersController extends AppController {
 		// On limite la recherche
 		$contains = $this-> orderContains();
 		
-		// recuperons les Order.id des orderElements d'etat 'not ready'
+		// recuperons les Order.id des orderElements d'etat 
+		// 'not ready' ou 'cooking'
 		// TO DO : ELIMINER DOUBLONS DANS LES ORDER
 		$orderElts = $this->Order->OrderElement->find("list",array(
 			'fields' => array ('order_id'),
-			'conditions'=> array('orderElement.etat'=>'cooking')
-		));
+			'conditions'=> array(
+				"OR" => array(
+					'orderElement.etat'=>'cooking',
+					'orderElement.etat'=>'not ready'
+					)
+				)
+			)
+		);
 		
 		// on fait un tableau des $order_id utiles 
 		$orders_id =[];
