@@ -103,16 +103,23 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 							);?>
 					</li>
 					<?php endif ?>
-					
+							
+				</ul>
+
+				<?php 
+				if ($myuser['role'] =='cuisinier') :
+				?>
+				<ul class="nav">
 					<li>
 						<?php 
-							echo $this->Html->link('Commandes Test',
+							echo $this->Html->link('Commandes en cours',
                                         array('controller'=>'orders','action'=>'indexcook')
 							);?>
 					</li>
-					
-					
 				</ul>
+				<?php endif ?>
+		
+				
 				<?php 
 				if ($myuser['role'] =='admin') :
 				?>
@@ -120,8 +127,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				<ul class="nav">
 					<li>
 						<?php 
-							echo $this->Html->link('Commandes',
-                                        array('controller'=>'orders','action'=>'index')
+							echo $this->Html->link('Gestion Commandes',
+                                        array('controller'=>'orders','action'=>'indexadmin')
 							);?>
 					</li>
 					<li>
@@ -134,6 +141,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 						<?php 
 							echo $this->Html->link('Utilisateurs',
                                         array('controller'=>'users','action'=>'index')
+							);?>
+					</li>
+					<li>
+						<?php 
+							echo $this->Html->link('Commandes cuisto',
+                                        array('controller'=>'orders','action'=>'indexcook')
 							);?>
 					</li>
 				</ul>

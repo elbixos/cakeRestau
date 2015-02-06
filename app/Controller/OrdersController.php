@@ -11,6 +11,11 @@ class OrdersController extends AppController {
 			return true;
 		}
 
+		if ($this->action === 'indexcook') {
+			if ($user['role']==='cuisinier'){
+				return true;
+			}
+		}
 		// Des choses specifiques pour certains... sur les commandes
 		/*
 		if (in_array($this->action, array('edit', 'delete'))) {
@@ -25,70 +30,7 @@ class OrdersController extends AppController {
 		return parent::isAuthorized($user);
 	}
 
-	public function index() {
-		//$this->layout = 'monLayout';
-		
-		
-		//'OrderElement.Product.nom');
-		
-		// preparation de la liste, en fonction du role.
-		$user = $this->Auth->user();
-		//$this->set('user',$user);
-		
-		if ($user['role'] === "client") {
-			$conditions = array('Order.user_id'=> $user['id']); 
-			$this->set('orders', $this->Order->find('all',array(
-				'conditions'=>$conditions)
-				)
-			);
-		}
-		else if ($user['role'] === "cuisinier") {
-			// On limite la recherche
-			$this->Order->contain(array(
-				'OrderElement' => array(
-					'conditions'=>array('OrderElement.etat'=>'not ready'),
-					'fields' => array('etat','id'),
-					'Product' => array(
-						'fields'=>array('nom'),
-						'ProductLine' => array(
-							'fields'=>array('nom')
-						)
-					)
-				),
-				'User' => array(
-					'fields' => array('username')
-				)
-			));
-			
-
-			// On recupere 
-			$orders = $this->Order->find("all");
-			$this->set('orders', $orders);
-
-		}
-		else {
-			// On limite la recherche
-			$this->Order->contain(array(
-				'OrderElement' => array(
-					'fields' => array('etat','id'),
-					'Product' => array(
-						'fields'=>array('nom'),
-						'ProductLine' => array(
-							'fields'=>array('nom')
-						)
-					)
-				),
-				'User' => array(
-					'fields' => array('username')
-				)
-			));
-			$this->set('orders', $this->Order->find('all'));
-		}
-		//$this->set('orders', $this->Order->find('all',array('recursive'=>3)));
-	}
-	
-	public function indexcook() {
-		
+	protected function orderContains(){
 		// On limite la recherche
 		$contains = array(
 			'OrderElement' => array(
@@ -104,7 +46,31 @@ class OrdersController extends AppController {
 				'fields' => array('username')
 			)
 		);
+		return $contains;
 		
+	}
+	
+	// le controler standard de liste des commandes
+	// ne voit que celles de l'utilisateur
+	public function index() {
+		// On limite la recherche
+		$contains = $this-> orderContains();
+		
+		$user = $this->Auth->user();
+		$conditions = array('Order.user_id'=> $user['id']); 
+		$this->set('orders', $this->Order->find('all',array(
+			'conditions'=>$conditions,
+			'contain'=>$contains)
+			)
+		);
+		
+	}
+
+	// la liste des commandes pour le cuisinier
+	public function indexcook() {
+		
+		// On limite la recherche
+		$contains = $this-> orderContains();
 		
 		// recuperons les Order.id des orderElements d'etat 'not ready'
 		$orderElts = $this->Order->OrderElement->find("list",array(
@@ -124,8 +90,9 @@ class OrdersController extends AppController {
 			'conditions'=>array('Order.id' => $orders_id)
 			)
 		);
-		
-		
+
+		$this->set('orders',$orders);
+
 		/*
 		// Tentative de join, ratée...
 		$conditions = array();
@@ -149,7 +116,6 @@ class OrdersController extends AppController {
 		*/
 
 		
-		$this->set('orders',$orders);
 		
 
 		/* 
@@ -175,9 +141,25 @@ class OrdersController extends AppController {
 		
 		*/
 		
-		
+		//$this->render('/Orders/index');
 
-		}
+	}
+
+	// liste des commandes pour l'admin
+	public function indexadmin() {
+		
+		// On limite la recherche
+		$contains = $this-> orderContains();
+
+		// le find avec contain 
+		$orders = $this->Order->find('all',array(
+			'contain'=> $contains
+			)
+		);
+		
+		$this->set('orders', $orders);
+		$this->render('/Orders/index');
+	}
 	
 	/* On ajoute les elements du panier dans la commande */
 	public function add() {
