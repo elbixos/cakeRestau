@@ -34,10 +34,11 @@
 				echo '</td>';
 				echo '<td>'.$orderElement['etat'].'<td>';
 				echo '<td>';
-				echo $this->Form->postLink(
-					'Avancer',
-					array('controller'=> 'OrderElements','action' => 'avancer', $orderElement['id'])
-				);
+				if ($orderElement['etat'] === 'not ready' or $orderElement['etat'] === 'cooking' )
+					echo $this->Form->postLink(
+						'Avancer',
+						array('controller'=> 'OrderElements','action' => 'avancer', $orderElement['id'])
+					);
 				echo '<td>';
 				echo '</tr>';
 			}
