@@ -89,18 +89,6 @@ class OrdersController extends AppController {
 	
 	public function indexcook() {
 		
-		// recuperons les Order.id des orderElements d'etat 'not ready'
-		$orderElts = $this->Order->OrderElement->find("list",array(
-			'fields' => array ('order_id'),
-			'conditions'=> array('orderElement.etat'=>'cooking')
-		));
-		
-		// on fait un tableau des $order_id utiles 
-		$orders_id =[];
-		foreach ($orderElts as $oe_id => $oi_id){
-			$orders_id[]=$oi_id;
-		}
-		
 		// On limite la recherche
 		$contains = array(
 			'OrderElement' => array(
@@ -116,13 +104,50 @@ class OrdersController extends AppController {
 				'fields' => array('username')
 			)
 		);
-
+		
+		
+		// recuperons les Order.id des orderElements d'etat 'not ready'
+		$orderElts = $this->Order->OrderElement->find("list",array(
+			'fields' => array ('order_id'),
+			'conditions'=> array('orderElement.etat'=>'cooking')
+		));
+		
+		// on fait un tableau des $order_id utiles 
+		$orders_id =[];
+		foreach ($orderElts as $oe_id => $oi_id){
+			$orders_id[]=$oi_id;
+		}
+		
 		// le find avec contain ET LA CONDITION !
 		$orders = $this->Order->find('all',array(
 			'contain'=> $contains,
 			'conditions'=>array('Order.id' => $orders_id)
 			)
 		);
+		
+		$orders = $this->Order->find('all', array(
+			'contain'=> $contains,
+			'joins'=>$conditions['joins']
+			)
+		);
+		
+		/*
+		// Tentative de join, ratée...
+		$conditions = array();
+		$conditions['joins'] = array(
+			array(
+				'table' => 'order_elements',
+				'alias' => 'OrderElement',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'OrderElement.etat' => 'cooking',
+					'OrderElement.order_id' => 'Order.id'
+				)
+			)
+		);
+		$this->recursive = -1;
+		*/
+
 		
 		$this->set('orders',$orders);
 		

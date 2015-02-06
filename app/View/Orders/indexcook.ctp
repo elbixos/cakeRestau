@@ -3,7 +3,7 @@
 
 <?php //debug($presel); ?>
 
-<?php //debug($orders); ?>
+<?php debug($orders); ?>
 
 
 <table>
