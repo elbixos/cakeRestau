@@ -8,6 +8,7 @@
 		<th>id</th>
 		<th>Nom du client</th>
 		<th>Produits</th>
+		<th>état</th>
 		<th>action</th>
 	</tr>
 
@@ -41,6 +42,25 @@
 			}
 		?>
 			</table>
+		</td>
+		<td>
+			<?php 
+			// état
+			//echo "rien";
+			echo $order['Order']['etat'];
+			if ($order['Order']['etat'] === 'en preparation' or $order['Order']['etat'] === 'prete a livrer' or $order['Order']['etat'] === 'en livraison') {
+				echo '<p>';
+				
+				echo $this->Form->postLink(
+					'Avancer',
+					array('action' => 'avancer', $order['Order']['id'])
+				);
+				echo '</p>';
+			}
+			
+			/*$this->Html->link($post['Post']['title'],
+			array('controller' => 'posts', 'action' => 'view', $post['Post']['id']));
+			*/?>
 		</td>
 		<td>
 			<?php 

@@ -274,6 +274,44 @@ class OrdersController extends AppController {
 			return $this->redirect(array('action' => 'index'));
 		}
 	}
+	
+	// Avancer une commande (en preparation => prete a livrer => en livraison => livrée
+	public function avancer($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Passez une commande valide !'));
+			throw new NotFoundException(__('commande invalide'));
+		}
+
+		$order =  $this->Order->findById($id);
+		if (!$order) {
+			$this->Session->setFlash(__('Cette commande n existe pas'));
+			throw new NotFoundException(__('Commande invalide'));
+		}
+		
+		if ($order['Order']['etat'] === 'en preparation')
+			$order['Order']['etat'] = 'prete a livrer';
+		elseif ($order['Order']['etat'] == 'prete a livrer')
+			$order['Order']['etat'] = 'en livraison';
+		elseif ($order['Order']['etat'] == 'en livraison')
+			$order['Order']['etat'] = 'livree';
+		else {
+				$this->Session->setFlash(__('Cette commande est deja livrée'));
+				throw new NotFoundException(__('Commande invalide'));
+			}
+		
+		
+		$this->set('order',$order);
+		
+		if ($this->Order->save($order)) {
+		
+			$this->Session->setFlash(__('Commande avancée'));
+		}
+		else
+			$this->Session->setFlash(__('Probleme lors de la requete'));
+		
+		$this->redirect(array('controller'=>'orders', 'action' => 'index'));
+	}
+	
 }
 
 ?>
