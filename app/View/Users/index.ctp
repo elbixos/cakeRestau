@@ -1,6 +1,10 @@
 <!-- File: /app/View/Users/index.ctp -->
 
-<?php //debug ($users); ?> 
+<?php
+//debug ($users); 
+//debug ($myuser); 
+
+?> 
 
 
 <h1>Utilisateurs</h1>
@@ -17,7 +21,9 @@
 	<tr>
 		<td><?php echo $user['User']['username']; ?></td>
 		<td><?php echo $user['User']['role']; ?></td>
-		<td><?php 	
+		<td><?php echo $user['User']['email']; ?></td>
+		<td><?php
+			if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 				
 				echo $this->Html->link(
 					'Edit',
@@ -28,6 +34,7 @@
 					'Supprimer',
 					array('action' => 'delete', $user['User']['id'])
 				);
+			}
 			?>
 		</td>
 		
@@ -36,7 +43,4 @@
 	<?php unset($users); ?>
 </table>
 
-<?php
-	echo "utilisateur : ".$myuser['username'];
-?>
 
