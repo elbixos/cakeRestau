@@ -87,6 +87,19 @@ class ProductsController extends AppController {
 		
 	}
 
+	public function delete($id = null) {
+		if ($this->request->is('get')) {
+			throw new MethodNotAllowedException();
+		}
+		
+		if ($this->Product->delete($id)) {
+			$this->Session->setFlash(
+				__('Le produit a été supprimé.')
+			);
+
+			return $this->redirect(array('action' => 'index'));
+		}
+	}
 
 	
 }

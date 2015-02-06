@@ -39,7 +39,7 @@
 </table>
 
 <?php
-	if ($myuser['role'] == 'admin') {
+	if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 		echo $this->Html->link(
 			'Ajout ingrédient',
 			array('controller' => 'ingredients', 'action' => 'add')

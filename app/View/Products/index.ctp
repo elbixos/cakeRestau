@@ -36,11 +36,18 @@
             <?php echo $this->Form->end();?>
         
 			<?php
-			//echo "rien";
-			echo $this->Html->link(
-				'Edit',
-				array('action' => 'edit', $unProduit['Product']['id'])
-			);
+			//ajout des liens edit/delete
+			if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+				echo $this->Html->link(
+					'Edit',
+					array('action' => 'edit', $unProduit['Product']['id'])
+				);
+				echo ' / ';
+				echo $this->Form->postLink(
+					'Delete',
+					array('action' => 'delete', $unProduit['Product']['id'])
+				);
+			}
 			?>
 		</td>
 	</tr>
@@ -49,16 +56,13 @@
 </table>
 
 <?php
-	echo $this->Html->link(
-		'Ajout produit',
-		array('controller' => 'products', 'action' => 'add')
-	);
+	
+	if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+		echo '<p>';
+		echo $this->Html->link(
+			'Ajout produit',
+			array('controller' => 'products', 'action' => 'add')
+		);
+		echo '</p>';
+	}
 ?>
-<p>
-<?php
-	echo $this->Html->link(
-		'Retour aux Gammes de produits',
-		array('controller' => 'product_lines', 'action' => 'index')
-	);
-?>
-</p>
