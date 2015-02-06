@@ -149,7 +149,7 @@ class OrdersController extends AppController {
 		
 		*/
 		
-		//$this->render('/Orders/index');
+		$this->render('/Orders/index');
 
 	}
 
