@@ -9,7 +9,11 @@
 		<th>Nom du client</th>
 		<th>Produits</th>
 		<th>état</th>
-		<th>action</th>
+		<?php
+		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+			echo '<th>Actions</th>';
+		}
+		?>
 	</tr>
 
 	<!-- Here is where we loop through our $posts array, printing out post info -->
@@ -62,9 +66,10 @@
 			array('controller' => 'posts', 'action' => 'view', $post['Post']['id']));
 			*/?>
 		</td>
-		<td>
-			<?php 
-			//echo "rien";
+		<?php
+		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+			echo '<td>';
+			
 			echo $this->Form->postLink(
 					'Supprimer',
 					array('action' => 'delete', $order['Order']['id']),
@@ -72,8 +77,11 @@
 				);
 			/*$this->Html->link($post['Post']['title'],
 			array('controller' => 'posts', 'action' => 'view', $post['Post']['id']));
-			*/?>
-		</td>
+			*/
+			
+			echo '</td>';
+		}
+		?>
 	</tr>
 	<?php endforeach; ?>
 	<?php unset($orders); ?>
