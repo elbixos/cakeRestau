@@ -7,7 +7,11 @@ class ProductsController extends AppController {
 
 	public function index() {
 		//$this->layout = 'monLayout';
-		$this->set('produits', $this->Product->find('all'));
+		$sort = array( 'ProductLine.nom'=> 'ASC');
+		$this->set('produits', $this->Product->find('all',
+				array('order'=>$sort)
+			)
+		);
 	}
 	
 	public function add() {

@@ -7,8 +7,9 @@
 <h1>Produits</h1>
 <table>
 	<tr>
-		<th>nom</th>
-		<th>gamme</th>
+		<th>Gamme</th>
+		<th>Nom</th>
+		<th>Prix</th>
 		<th>Ingrédients</th>
 		<th>action</th>
 	</tr>

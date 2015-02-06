@@ -47,6 +47,7 @@ class OrdersController extends AppController {
 		// On limite la recherche
 		$contains = array(
 			'OrderElement' => array(
+				'order' => 'OrderElement.etat DESC',
 				'fields' => array('etat','id'),
 				'Product' => array(
 					'fields'=>array('nom'),
@@ -86,20 +87,14 @@ class OrdersController extends AppController {
 
 	// la liste des commandes pour le cuisinier
 	public function indexcook() {
-		
-		// On limite la recherche
-		$contains = $this-> orderContains();
-		
+				
 		// recuperons les Order.id des orderElements d'etat 
 		// 'not ready' ou 'cooking'
 		// TO DO : ELIMINER DOUBLONS DANS LES ORDER
 		$orderElts = $this->Order->OrderElement->find("list",array(
 			'fields' => array ('order_id'),
 			'conditions'=> array(
-				"OR" => array(
-					'orderElement.etat'=>'cooking',
-					'orderElement.etat'=>'not ready'
-					)
+				'orderElement.etat'=> array('cooking','not ready')
 				)
 			)
 		);
@@ -110,10 +105,16 @@ class OrdersController extends AppController {
 			$orders_id[]=$oi_id;
 		}
 		
+		// On limite la recherche
+		$contains = $this-> orderContains();
+		
+		$sort = array('Order.id'=>'ASC');
+		
 		// le find avec contain ET LA CONDITION !
 		$orders = $this->Order->find('all',array(
 			'contain'=> $contains,
-			'conditions'=>array('Order.id' => $orders_id)
+			'conditions'=>array('Order.id' => $orders_id),
+			'order'=>$sort
 			)
 		);
 
@@ -202,10 +203,13 @@ class OrdersController extends AppController {
 		
 		// On limite la recherche
 		$contains = $this-> orderContains();
-
+		
+		$sort = array('Order.id'=>'DESC');
+		
 		// le find avec contain 
 		$orders = $this->Order->find('all',array(
-			'contain'=> $contains
+			'contain'=> $contains,
+			'order' => $sort
 			)
 		);
 		
