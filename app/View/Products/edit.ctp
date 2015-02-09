@@ -18,7 +18,12 @@
 	echo $this->Form->create('Product', array('enctype' => 'multipart/form-data'));
 	echo $this->Form->input('product_line_id');
 	echo $this->Form->input('nom');
-	echo $this->Form->input('upload', array('type' => 'file'));
+	if (!empty ($this->request->data['Product']['image'])){
+		echo '<p class="imgProduct">';
+		echo $this->Html->image('uploads/products/' . $this->request->data['Product']['image']);
+		echo '</p>';
+	}
+	echo $this->Form->input('Modifier image', array('type' => 'file'));
 
 	echo $this->Form->input('prix');
 	echo $this->Form->input('Ingredient',array( 'type' => 'select', 'multiple' => 'checkbox' ));
