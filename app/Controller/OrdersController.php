@@ -229,8 +229,9 @@ class OrdersController extends AppController {
 					'conditions' => array(
 						'OrderElement.order_id' => 'Order.id',
 						'OrderElement.etat' => 'cooking'
-					)
-				)
+					),
+				)		
+				
             )
         ));
 		
