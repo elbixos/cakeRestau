@@ -15,9 +15,11 @@
 
 	*/
 	
-	echo $this->Form->create('Product');
+	echo $this->Form->create('Product', array('enctype' => 'multipart/form-data'));
 	echo $this->Form->input('product_line_id');
 	echo $this->Form->input('nom');
+	echo $this->Form->input('upload', array('type' => 'file'));
+
 	echo $this->Form->input('prix');
 	echo $this->Form->input('Ingredient',array( 'type' => 'select', 'multiple' => 'checkbox' ));
 

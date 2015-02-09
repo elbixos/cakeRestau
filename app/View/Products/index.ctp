@@ -18,8 +18,19 @@
 	<?php foreach ($produits as $unProduit): ?>
 	<tr>
 		<td><?php echo $unProduit['ProductLine']['nom']; ?></td>
-		<td><?php echo $unProduit['Product']['nom']; ?></td>
-		<td><?php echo $this->Html->image('uploads/products/' . $unProduit['Product']['image']); ?></td>
+		<td><?php echo $unProduit['Product']['nom']; ?>
+		<?php
+			echo '<p class="imgProduct">';
+			// Si pas d'image pour le produit, on insere celle de la gamme
+			if (empty($unProduit['Product']['image']))
+				echo $this->Html->image('uploads/product_lines/' . $unProduit['ProductLine']['image']);
+			else
+				echo $this->Html->image('uploads/products/' . $unProduit['Product']['image']);
+			
+			echo '</p>';
+		?>
+		</td>
+		
 		<td><?php echo $unProduit['Product']['prix']; ?></td>
 		<td>
 			<?php
