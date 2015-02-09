@@ -197,7 +197,6 @@ class OrdersController extends AppController {
 
 	}
 	
-	
 	// liste des commandes pour l'admin
 	public function indexadmin() {
 		
@@ -216,6 +215,31 @@ class OrdersController extends AppController {
 		$this->set('orders', $orders);
 		$this->render('/Orders/index');
 	}
+
+	public function indextest() {
+		//$contains = $this-> orderContains();
+
+		$yes = $this->Order->find('all', array(
+			'recursive'=>-1,
+			'joins' => array(
+				array(
+					'table' => 'order_elements',
+					'alias' => 'OrderElement',
+					'type' => 'left',
+					'conditions' => array(
+						'OrderElement.order_id' => 'Order.id',
+						'OrderElement.etat' => 'cooking'
+					)
+				)
+            )
+        ));
+		
+		$this->set('orders',$yes);
+		//$this->render('/Orders/index');
+
+	}
+
+
 	
 	/* On ajoute les elements du panier dans la commande */
 	public function add() {
