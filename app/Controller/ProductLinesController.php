@@ -55,8 +55,32 @@ class ProductLinesController extends AppController {
 				
 		if ($this->request->is(array('post', 'put'))) {
 			$this->ProductLine->id = $id;
+			//$this->set ('dbg',$this->request->data);
+
+			if(!empty($this->request->data['ProductLine']['upload']['name']))
+			{
+					$file = $this->request->data['ProductLine']['upload']; //put the data into a var for easy use
+
+					$ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+					$arr_ext = array('jpg'); //set allowed extensions
+
+					//only process if the extension is valid
+					if(in_array($ext, $arr_ext))
+					{
+							//do the actual uploading of the file. First arg is the tmp name, second arg is 
+							//where we are putting it
+							// ATTENTION, le nom de l'image sauvée est celui de la ProductLine
+							$filename = $this->request->data['ProductLine']['nom'].'.jpg';
+							move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/uploads/product_lines/' .$filename);
+
+							//prepare the filename for database entry
+							$this->request->data['ProductLine']['image'] = $filename;
+							//$this->set ('dbg',$this->request->data);
+					}
+			}
 			if ($this->ProductLine->save($this->request->data)) {
 				$this->Session->setFlash(__('Gamme de produits modifiée'));
+				//$this->set ('dbg',$this->request->data);
 				return $this->redirect(array('action' => 'index'));
 			}
 			$this->Session->setFlash(__('Impossible de modifier votre Gamme de produits.'));

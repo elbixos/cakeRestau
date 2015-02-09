@@ -3,7 +3,6 @@
 <table>
 	<tr>
 		<th>nom</th>
-		<th>image</th>
 		<th>action</th>
 	</tr>
 
@@ -13,12 +12,15 @@
 		<td>
 			<?php
 			//echo $uneGamme['ProductLine']['nom'];
-			echo 
-				$this->Html->link($uneGamme['ProductLine']['nom'],
+			echo '<p>';
+			echo $this->Html->link($uneGamme['ProductLine']['nom'],
 					array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
+			echo '</p>';
+			echo '<p class ="imgProduct">';
+				echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']);
+			echo '</p>';
 			?>
 		</td>
-		<td><?php echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']); ?></td>
 		<td>
 			<?php
 				echo $this->Form->postLink(

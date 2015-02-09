@@ -37,6 +37,9 @@ class ProductsController extends AppController {
 					{
 							//do the actual uploading of the file. First arg is the tmp name, second arg is 
 							//where we are putting it
+							// ATTENTION, le nom du fichier est ProductLine_Product.jpg
+							$filename = $this->request->data['Product']['ProductLine']['nom'].'_'.$this->request->data['Product']['nom'].'.jpg';
+
 							move_uploaded_file($file['tmp_name'], WWW_ROOT . 'img/uploads/products/' . $file['name']);
 
 							//prepare the filename for database entry

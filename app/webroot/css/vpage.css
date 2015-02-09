@@ -54,3 +54,8 @@ tr.success  td{
 	font-size:1.2rem;
 	color:#333333;
 }
+
+p.imgProduct img{
+	width:64px;
+	height : 64px;
+}

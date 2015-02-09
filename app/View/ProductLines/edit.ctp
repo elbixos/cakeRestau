@@ -2,21 +2,13 @@
 <h1>Modification d'un produit</h1>
 <?php
 	
-	/*
-	print_r($product_lines)
-	foreach ($product_lines as $product_line) :
-		echo $product_line['ProductLine']['nom'];
-	endforeach;
 	
-	echo "<br>";
-	print_r($productLines);
+	//debug($dbg);
 	
-	print_r($ingredients);
-
-	*/
 	
-	echo $this->Form->create('ProductLine');
+	echo $this->Form->create('ProductLine', array('enctype' => 'multipart/form-data'));
 	echo $this->Form->input('nom');
+	echo $this->Form->input('upload', array('type' => 'file'));
 
 	echo $this->Form->end('Modifier le produit');
 
