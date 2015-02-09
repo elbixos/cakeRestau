@@ -54,7 +54,8 @@ class AppController extends Controller {
 }
 
     public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
+		// On elimine ceci car sinon, on peut avoir la liste des utilisateurs !
+        //$this->Auth->allow('index', 'view');
 		
 		// Pour le panier
 		$this->loadModel('Cart');

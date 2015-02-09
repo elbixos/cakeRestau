@@ -3,7 +3,11 @@
 <table>
 	<tr>
 		<th>nom</th>
-		<th>action</th>
+		<?php
+		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+			echo '<th>action</th>';
+		}
+		?>
 	</tr>
 
 	<!-- Here is where we loop through our $posts array, printing out post info -->
@@ -21,21 +25,25 @@
 			echo '</p>';
 			?>
 		</td>
-		<td>
-			<?php
-				echo $this->Form->postLink(
-					'Supprimer',
-					array('action' => 'delete', $uneGamme['ProductLine']['id']),
-					array('confirm' => 'Are you sure?')
-				);
-				echo ' / ';
-			
-				echo $this->Html->link(
-					'Edit',
-					array('action' => 'edit', $uneGamme['ProductLine']['id'])
-				);
-			?>
-		</td>
+	
+		<?php
+		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+			echo '<td>';
+			echo $this->Form->postLink(
+				'Supprimer',
+				array('action' => 'delete', $uneGamme['ProductLine']['id']),
+				array('confirm' => 'Are you sure?')
+			);
+			echo ' / ';
+		
+			echo $this->Html->link(
+				'Edit',
+				array('action' => 'edit', $uneGamme['ProductLine']['id'])
+			);
+			echo '</td>';
+		}
+		?>
+		
 	</tr>
 	<?php endforeach; ?>
 	<?php unset($unIngredient); ?>
@@ -50,10 +58,3 @@
 	);
 ?>
 
-<p>
-	<?php
-		echo 
-			$this->Html->link('Voir tous les produits',
-				array('controller' => 'products', 'action' => 'index')); 
-	?>
-</p>

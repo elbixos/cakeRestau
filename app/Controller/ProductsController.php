@@ -3,7 +3,11 @@
 class ProductsController extends AppController {
 	public $helpers = array('Html', 'Form');
 	//public $actsAs = array('Containable');
-	 
+	
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'view','viewProductsFromProductLine');
+    }	
 
 	public function index() {
 		//$this->layout = 'monLayout';
@@ -71,7 +75,9 @@ class ProductsController extends AppController {
 			//throw new NotFoundException(__('Produit invalide'));
 		}
 		
-		$this->set('products', $products);
+		$this->set('produits', $products);
+
+		$this->render('/Products/index');
 
 
 		}

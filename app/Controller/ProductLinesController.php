@@ -4,8 +4,14 @@ class ProductLinesController extends AppController {
 	public $helpers = array('Html', 'Form');
 	public $components = array('Session');
 	
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'view');
+    }	
+	
 	public function index() {
-		$this->set('product_lines', $this->ProductLine->find('all'));
+		$sort = array( 'ProductLine.nom'=> 'ASC');
+		$this->set('product_lines', $this->ProductLine->find('all',array('order'=>$sort)));
 	}
 	
 	public function add() {

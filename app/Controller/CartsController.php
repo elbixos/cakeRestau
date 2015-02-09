@@ -7,7 +7,7 @@ class CartsController extends AppController {
 	
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add','update','raz');
+        $this->Auth->allow('index','view','add','update','raz');
     }
      
     public function add() {
