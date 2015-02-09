@@ -19,6 +19,7 @@
 	<tr>
 		<td><?php echo $unProduit['ProductLine']['nom']; ?></td>
 		<td><?php echo $unProduit['Product']['nom']; ?></td>
+		<td><?php echo $this->Html->image('uploads/products/' . $unProduit['Product']['image']); ?></td>
 		<td><?php echo $unProduit['Product']['prix']; ?></td>
 		<td>
 			<?php

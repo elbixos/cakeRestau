@@ -3,6 +3,7 @@
 <table>
 	<tr>
 		<th>nom</th>
+		<th>image</th>
 		<th>action</th>
 	</tr>
 
@@ -14,15 +15,22 @@
 			//echo $uneGamme['ProductLine']['nom'];
 			echo 
 				$this->Html->link($uneGamme['ProductLine']['nom'],
-				array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
+					array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
 			?>
-			</td>
+		</td>
+		<td><?php echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']); ?></td>
 		<td>
 			<?php
 				echo $this->Form->postLink(
 					'Supprimer',
 					array('action' => 'delete', $uneGamme['ProductLine']['id']),
 					array('confirm' => 'Are you sure?')
+				);
+				echo ' / ';
+			
+				echo $this->Html->link(
+					'Edit',
+					array('action' => 'edit', $uneGamme['ProductLine']['id'])
 				);
 			?>
 		</td>
