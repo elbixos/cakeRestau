@@ -51,4 +51,8 @@ if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 	);
 }
 ?>
+<div id="listeProdFromProductLine">
+</div>
+<p id ="testclick"> Click here </p>
+<?php echo $this->Html->script("myAjax"); ?>
 

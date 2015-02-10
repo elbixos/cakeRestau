@@ -33,6 +33,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		echo $this->Html->script('jquery-2.1.3'); // Inclut la librairie Jquery 
+
+
 	?>
 </head>
 <body>
@@ -224,6 +227,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</p>
 		</div>
 	</div>
+	<?php //echo $this->Html->script('myAjax'); // un test ?>
+
 	<?php echo $this->element('sql_dump'); ?>
+
 </body>
 </html>

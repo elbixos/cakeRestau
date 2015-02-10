@@ -6,7 +6,7 @@ class ProductLinesController extends AppController {
 	
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'view');
+        $this->Auth->allow('index', 'view','mytest');
     }	
 	
 	public function index() {
@@ -111,6 +111,20 @@ class ProductLinesController extends AppController {
 
 			return $this->redirect(array('action' => 'index'));
 		}
+	}
+	
+	/**
+	 * AJAX action to test
+	 */
+	public function mytest() {
+		$this->autoRender = false; // We don't render a view in this example
+		$this->request->onlyAllow('ajax'); // No direct access via browser URL
+	 
+		$data = array(
+			'content' => 'trop bidon',
+			'error' => 'raté',
+		);
+		return json_encode($data);
 	}
 }
 
