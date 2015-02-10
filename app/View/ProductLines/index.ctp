@@ -1,34 +1,26 @@
 <!-- File: /app/View/ProductLine/index.ctp -->
 <h1>Gammes de produits</h1>
-<table>
-	<tr>
-		<th>nom</th>
-		<?php
-		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
-			echo '<th>action</th>';
-		}
-		?>
-	</tr>
 
-	<!-- Here is where we loop through our $posts array, printing out post info -->
-	<?php foreach ($product_lines as $uneGamme): ?>
-	<tr>
-		<td>
-			<?php
-			//echo $uneGamme['ProductLine']['nom'];
-			echo '<p>';
-			echo $this->Html->link($uneGamme['ProductLine']['nom'],
-					array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
-			echo '</p>';
-			echo '<p class ="imgProduct">';
-				echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']);
-			echo '</p>';
-			?>
-		</td>
+<!-- Here is where we loop through our $posts array, printing out post info -->
+<?php
+if (!empty($product_lines)) {
+	echo '<ul class="prodLines">';
+	foreach ($product_lines as $uneGamme){
+		echo '<li>';
+		
+		
+		//echo $uneGamme['ProductLine']['nom'];
+		echo '<p>';
+		echo $this->Html->link($uneGamme['ProductLine']['nom'],
+				array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
+		echo '</p>';
+		echo '<p class ="imgProduct">';
+			echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']);
+		echo '</p>';
 	
-		<?php
+		// Controles Edit / Delete pour admin et gerant
 		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
-			echo '<td>';
+			echo '<p>';
 			echo $this->Form->postLink(
 				'Supprimer',
 				array('action' => 'delete', $uneGamme['ProductLine']['id']),
@@ -40,21 +32,23 @@
 				'Edit',
 				array('action' => 'edit', $uneGamme['ProductLine']['id'])
 			);
-			echo '</td>';
+			echo '</p>';
 		}
-		?>
-		
-	</tr>
-	<?php endforeach; ?>
-	<?php unset($unIngredient); ?>
+		echo '</li>';
+
+	}
 	
-	
-</table>
+	echo '</ul>';
+}
+
+unset($unIngredient); ?>
 
 <?php
+if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 	echo $this->Html->link(
 		'Ajout Gamme de produit',
 		array('controller' => 'product_lines', 'action' => 'add')
 	);
+}
 ?>
 

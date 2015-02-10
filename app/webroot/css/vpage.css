@@ -59,3 +59,24 @@ p.imgProduct img{
 	width:64px;
 	height : 64px;
 }
+
+p.imgProduct img{
+	width:64px;
+	height : 64px;
+}
+
+ul.prodLines {
+	list-style:none;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
+	border-bottom : 1px solid black;
+}
+ul.prodLines li{
+	margin:auto;
+}
+
+ul.prodLines li p{
+	text-align:center;
+}
+
