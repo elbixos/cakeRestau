@@ -2,7 +2,7 @@
 <h1>Modification d'un Utilisateur</h1>
 <?php
 	
-	
+	debug($this->request->data);
 	echo $this->Form->create('User');
 	echo $this->Form->input('username');
 	//echo $this->Form->input('password');

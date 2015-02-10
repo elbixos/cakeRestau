@@ -39,8 +39,10 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'products', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'products', 'action' => 'index'),	
 			'authorize' => array('Controller') // Ajout de cette ligne
-		)
-    );
+		),
+        'RequestHandler'
+	);
+  
 	
 	public function isAuthorized($user) {
     // Admin peut accéder à toute action

@@ -7,8 +7,8 @@ $('#testclick').on('click', function(event){
             dataType: "html",
             type: "POST",
             evalScripts: true,
-            //url: '/cakeGit/products/viewProductsFromProductLine/1',
-			url: '/cakeGit/product_lines/mytest',
+            url: '/cakeGit/products/viewAjaxProductsFromProductLine/1',
+			//url: '/cakeGit/product_lines/mytest',
             data: ({type:'original'}),
             success: function (data, textStatus){
                 $("#listeProdFromProductLine").html(data);

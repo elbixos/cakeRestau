@@ -6,7 +6,7 @@ class ProductsController extends AppController {
 	
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('index', 'view','viewProductsFromProductLine');
+        $this->Auth->allow('index', 'view','viewProductsFromProductLine','viewAjaxProductsFromProductLine');
     }	
 
 	public function index() {
@@ -62,6 +62,31 @@ class ProductsController extends AppController {
 	// recupere les produits d'une gamme donnee
 	public function viewProductsFromProductLine($product_line_id = null) {
 		
+		if (!$product_line_id) {
+			throw new NotFoundException(__('Gamme de Produits invalide'));
+		}
+
+		$products = $this->Product->find('all', array(
+			'conditions' => 'ProductLine.id = '.$product_line_id
+		));
+		
+		if (!$products) {
+			$this->Session->setFlash(__('Cette gamme n a pas de produits pour le moment.'));
+			//throw new NotFoundException(__('Produit invalide'));
+		}
+		
+		$this->set('produits', $products);
+
+		$this->render('/Products/index');
+
+
+		}
+
+	// recupere les produits d'une gamme donnee
+	public function viewAjaxProductsFromProductLine($product_line_id = null) {
+		$this->autoRender = false; // We don't render a view in this example
+		$this->request->onlyAllow('ajax'); // No direct access via browser URL
+	 
 		if (!$product_line_id) {
 			throw new NotFoundException(__('Gamme de Produits invalide'));
 		}

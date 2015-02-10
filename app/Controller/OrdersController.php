@@ -7,10 +7,15 @@ class OrdersController extends AppController {
 	
 	public function isAuthorized($user) {
 		// Tous les users inscrits peuvent ajouter une commande
-		if ($this->action === 'add') {
+		if ($this->action === 'add' ) {
 			return true;
 		}
 
+		if ($this->action === 'index' ) {
+			return true;
+		}
+
+		
 		if ($this->action === 'indexcook') {
 			if ($user['role']==='cuisinier'){
 				return true;

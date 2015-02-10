@@ -2,8 +2,8 @@
 <h1>Ajout d'un produit</h1>
 <?php
 
-	//debug($productLines);
-	//debug($ingredients);
+	debug($productLines);
+	debug($ingredients);
 	// creation du formulaire, enctype pour l'upoad d'images
 	echo $this->Form->create('Product', array('enctype' => 'multipart/form-data'));
 	echo $this->Form->input('nom');
