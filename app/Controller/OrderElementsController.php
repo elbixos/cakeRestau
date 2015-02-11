@@ -56,7 +56,7 @@ class OrderElementsController extends AppController {
 			// auto avance des commandes dont tous les OrderElements sont ready...
 			//	on recupere les OE de la commande en cours
 			$allOE = $this->OrderElement->findAllByOrderId($orderElt['Order']['id']);
-			debug ($allOE);
+			//debug ($allOE);
 			// on parcourt les OE
 			$flag = true;
 			foreach ($allOE as $oe) {
@@ -64,7 +64,7 @@ class OrderElementsController extends AppController {
 					$flag = false;
 			}
 			
-			debug ($flag);
+			//debug ($flag);
 			// si tous les elements sont ready -> on modifie l'order...
 			if ($flag) {
 				$myorder = $this->OrderElement->Order->findById($orderElt['Order']['id']);
