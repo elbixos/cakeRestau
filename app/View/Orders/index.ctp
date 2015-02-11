@@ -10,7 +10,7 @@
 		<th>Produits</th>
 		<th>état</th>
 		<?php
-		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+		if (in_array($myuser['role'] ,array('admin','gerant','cuisinier','livreur'), true) ) {
 			echo '<th>Actions</th>';
 		}
 		?>
@@ -35,13 +35,15 @@
 				echo $orderElement['Product']['ProductLine']['nom'].' / '.$orderElement['Product']['nom'];
 				echo '</td>';
 				echo '<td>'.$orderElement['etat'].'<td>';
-				echo '<td>';
-				if ($orderElement['etat'] === 'not ready' or $orderElement['etat'] === 'cooking' )
-					echo $this->Form->postLink(
-						'Avancer',
-						array('controller'=> 'OrderElements','action' => 'avancer', $orderElement['id'])
-					);
-				echo '<td>';
+						if (in_array($myuser['role'] ,array('admin','gerant','cuisinier'), true) ) {
+					echo '<td>';
+					if ($orderElement['etat'] === 'not ready' or $orderElement['etat'] === 'cooking' )
+						echo $this->Form->postLink(
+							'Avancer',
+							array('controller'=> 'OrderElements','action' => 'avancer', $orderElement['id'])
+						);
+					echo '<td>';
+				}
 				echo '</tr>';
 			}
 		?>
@@ -55,10 +57,12 @@
 			if ($order['Order']['etat'] === 'en preparation' or $order['Order']['etat'] === 'prete a livrer' or $order['Order']['etat'] === 'en livraison') {
 				echo '<p>';
 				
-				echo $this->Form->postLink(
-					'Avancer',
-					array('action' => 'avancer', $order['Order']['id'])
-				);
+				if (in_array($myuser['role'] ,array('admin','gerant','cuisinier','livreur'), true) ) {
+					echo $this->Form->postLink(
+						'Avancer',
+						array('action' => 'avancer', $order['Order']['id'])
+					);
+				}
 				echo '</p>';
 			}
 			
@@ -67,7 +71,7 @@
 			*/?>
 		</td>
 		<?php
-		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
+		if (in_array($myuser['role'] ,array('admin','gerant'), true) ) {
 			echo '<td>';
 			
 			echo $this->Form->postLink(
