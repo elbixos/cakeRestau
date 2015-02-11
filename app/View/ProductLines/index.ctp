@@ -17,7 +17,9 @@ if (!empty($product_lines)) {
 		echo '<p class ="imgProduct">';
 			echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']);
 		echo '</p>';
-	
+		echo '<p class="testclick" product_line_id="'.$uneGamme['ProductLine']['id'].'" >';
+		echo 'Voir';
+		echo '</p>';
 		// Controles Edit / Delete pour admin et gerant
 		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 			echo '<p>';
@@ -53,6 +55,7 @@ if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 ?>
 <div id="listeProdFromProductLine">
 </div>
-<p id ="testclick"> Click here </p>
+
+
 <?php echo $this->Html->script("myAjax"); ?>
 
