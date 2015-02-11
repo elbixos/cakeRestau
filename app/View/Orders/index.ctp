@@ -10,7 +10,7 @@
 		<th>Produits</th>
 		<th>état</th>
 		<?php
-		if (in_array($myuser['role'] ,array('admin','gerant','cuisinier','livreur'), true) ) {
+		if (in_array($myuser['role'] ,array('admin','gerant'), true) ) {
 			echo '<th>Actions</th>';
 		}
 		?>
@@ -57,7 +57,7 @@
 			if ($order['Order']['etat'] === 'en preparation' or $order['Order']['etat'] === 'prete a livrer' or $order['Order']['etat'] === 'en livraison') {
 				echo '<p>';
 				
-				if (in_array($myuser['role'] ,array('admin','gerant','cuisinier','livreur'), true) ) {
+				if (in_array($myuser['role'] ,array('admin','gerant','livreur'), true) ) {
 					echo $this->Form->postLink(
 						'Avancer',
 						array('action' => 'avancer', $order['Order']['id'])

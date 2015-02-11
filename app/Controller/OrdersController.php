@@ -23,7 +23,7 @@ class OrdersController extends AppController {
 		}
 		
 		if ($this->action === 'avancer') {
-			if ($user['role']==='cuisinier' or $user['role']==='livreur'){
+			if (in_array($user['role'] ,array('cuisinier','livreur'), true) ) {
 				return true;
 			}
 		}
