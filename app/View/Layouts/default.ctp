@@ -78,42 +78,42 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<div  id="menu">
 				<!-- rappel du panier -->
 				<div class="nav cart">
-				<ul class="nav cart">
-					<li>
-						<?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge" id="cart-counter">'.$count.'</span>',
-                                        array('controller'=>'carts','action'=>'view'),array('escape'=>false));?>
-					</li>
-				</ul>
+					<ul class="nav cart">
+						<li>
+							<?php echo $this->Html->link('<span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge" id="cart-counter">'.$count.'</span>',
+											array('controller'=>'carts','action'=>'view'),array('escape'=>false));?>
+						</li>
+					</ul>
 				</div>
 				<!-- Menu client (pour tout le monde)-->
 				<div class="nav client">
-				<h2> vos actions </h2>
-				<ul class="nav client">
-					<li>
+					<h2> vos actions </h2>
+					<ul class="nav client">
+						<li>
+							<?php 
+								echo $this->Html->link('gammes de produits',
+											array('controller'=>'product_lines','action'=>'index')
+								);?>
+						</li>
+			
+						<li>
+							<?php 
+								echo $this->Html->link('produits',
+											array('controller'=>'products','action'=>'index')
+								);?>
+						</li>
 						<?php 
-							echo $this->Html->link('gammes de produits',
-                                        array('controller'=>'product_lines','action'=>'index')
-							);?>
-					</li>
-		
-					<li>
-						<?php 
-							echo $this->Html->link('produits',
-                                        array('controller'=>'products','action'=>'index')
-							);?>
-					</li>
-					<?php 
-					if (!empty($myuser)) :
-					?>
-					<li>
-						<?php 
-							echo $this->Html->link('Vos Commandes',
-                                        array('controller'=>'orders','action'=>'index')
-							);?>
-					</li>
-					<?php endif ?>
-							
-				</ul>
+						if (!empty($myuser)) :
+						?>
+						<li>
+							<?php 
+								echo $this->Html->link('Vos Commandes',
+											array('controller'=>'orders','action'=>'index')
+								);?>
+						</li>
+						<?php endif ?>
+								
+					</ul>
 				</div>
 
 				<!-- le menu specifique pour membres de l'entreprise -->

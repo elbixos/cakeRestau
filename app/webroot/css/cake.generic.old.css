@@ -23,15 +23,14 @@
 
 /** General Style Info **/
 body {
-	background: #a10b30;
+	background: #003d4c;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
 }
 a {
-	/*color: #003d4c;*/
-	color: #90adbc;
+	color: #003d4c;
 	text-decoration: underline;
 	font-weight: bold;
 }
@@ -43,22 +42,17 @@ a img {
 	border:none;
 }
 h1, h2, h3, h4 {
-
 	font-weight: normal;
 	margin-bottom:0.5em;
 }
 h1 {
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
-	background: #810b10;
-	color: #cccccc;
-	font-size: 200%;
-	padding:0.5em;
+	background:#fff;
+	color: #003d4c;
+	font-size: 100%;
 }
 h2 {
-	background: #810b10;
-	color: #cccccc;
+	background:#fff;
+	color: #e32;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 }
@@ -104,8 +98,7 @@ p {
 	text-decoration: underline;
 }
 #content{
-	background:#a10b30;
-
+	background: #fff;
 	clear: both;
 	color: #333;
 	padding: 10px 20px 40px 20px;
@@ -173,15 +166,9 @@ table tr td {
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
 }
-
 table tr:nth-child(even) {
-	background: #feae42;
-	/*  un beau vert #6c6b17;*/
+	background: #f9f9f9;
 }
-table tr:nth-child(odd) {
-	background: #fe8e22;
-}
-
 td.actions {
 	text-align: center;
 	white-space: nowrap;
