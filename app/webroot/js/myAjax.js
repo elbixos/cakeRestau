@@ -3,7 +3,7 @@
 
 $( document ).ready(function() {
 	
-	$('.testclick').on('click', function(event){
+	$('.prodLineShow').on('click', function(event){
 		
 		// Si la div de présentation est visible, on la cache
 		if ( !$( "#listeProdFromProductLine" ).is( ":hidden" ) ) {

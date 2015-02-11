@@ -10,16 +10,26 @@ if (!empty($product_lines)) {
 		
 		
 		//echo $uneGamme['ProductLine']['nom'];
-		echo '<p>';
-		echo $this->Html->link($uneGamme['ProductLine']['nom'],
-				array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
-		echo '</p>';
 		echo '<p class ="imgProduct">';
 			echo $this->Html->image('uploads/product_lines/' . $uneGamme['ProductLine']['image']);
 		echo '</p>';
+
+		echo '<p>';
+			echo $this->Html->link($uneGamme['ProductLine']['nom'],
+				array('controller' => 'products', 'action' => 'viewProductsFromProductLine' , $uneGamme['ProductLine']['id']));
+			echo $this->Html->image('downArrow3_32.png', array(
+				'alt' => 'Voir',
+				'class' => 'prodLineShow',
+				'product_line_id'=>$uneGamme['ProductLine']['id']
+				)
+			);
+		echo '</p>';
+
+		/* 	
 		echo '<p class="testclick" product_line_id="'.$uneGamme['ProductLine']['id'].'" >';
 		echo 'Voir';
 		echo '</p>';
+		*/
 		// Controles Edit / Delete pour admin et gerant
 		if ($myuser['role'] === 'admin' || $myuser['role'] === 'gerant') {
 			echo '<p>';
