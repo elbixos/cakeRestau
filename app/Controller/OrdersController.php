@@ -99,7 +99,7 @@ class OrdersController extends AppController {
 		$orderElts = $this->Order->OrderElement->find("list",array(
 			'fields' => array ('order_id'),
 			'conditions'=> array(
-				'orderElement.etat'=> array('cooking','not ready')
+				'OrderElement.etat'=> array('cooking','not ready')
 				)
 			)
 		);

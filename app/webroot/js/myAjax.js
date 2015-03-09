@@ -15,7 +15,7 @@ $( document ).ready(function() {
 				dataType: "html",
 				type: "POST",
 				evalScripts: true,
-				url: '/cakeGit/products/viewAjaxProductsFromProductLine/'+pl_id,
+				url: 'products/viewAjaxProductsFromProductLine/'+pl_id,
 				//url: '/cakeGit/product_lines/mytest',
 				data: ({type:'original'}),
 				success: function (data, status){
